@@ -15,6 +15,15 @@ import java.util.Map;
 public class ServiceProvidersServiceImpl implements ServiceProvidersService {
     private static final Map<String, ServiceProviderModel> SERVICE_PROVIDER_MAP = new HashMap<>();
 
+    static {
+        ServiceProviderModel serviceProviderElectrician = new ServiceProviderModel();
+        serviceProviderElectrician.setId("SP1");
+        serviceProviderElectrician.setServiceId("S1");
+        serviceProviderElectrician.setName("Micheal");
+        serviceProviderElectrician.setTelephone("123456789");
+        SERVICE_PROVIDER_MAP.put(serviceProviderElectrician.getId(), serviceProviderElectrician);
+    }
+
     /**
      * Method to get all the service providers.
      *

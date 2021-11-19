@@ -16,10 +16,10 @@ public class ServicesServiceImpl implements ServicesService {
     private static final Map<String, ServiceModel> SERVICES_MAP = new HashMap<>();
 
     static {
-        SERVICES_MAP.put("1", new ServiceModel("1", "Electrician"));
-        SERVICES_MAP.put("2", new ServiceModel("2", "Plumber"));
-        SERVICES_MAP.put("3", new ServiceModel("3", "Yoga Trainer"));
-        SERVICES_MAP.put("4", new ServiceModel("4", "Painter"));
+        SERVICES_MAP.put("S1", new ServiceModel("S1", "Electrician"));
+        SERVICES_MAP.put("S2", new ServiceModel("S2", "Plumber"));
+        SERVICES_MAP.put("S3", new ServiceModel("S3", "Yoga Trainer"));
+        SERVICES_MAP.put("S4", new ServiceModel("S4", "Painter"));
     }
 
     /**

@@ -20,7 +20,7 @@ public class ConsumerUserServiceImpl implements ConsumerUserService {
 
     static {
         ConsumerUserModel consumerUserModel = new ConsumerUserModel();
-        consumerUserModel.setId("1");
+        consumerUserModel.setId("C1");
         consumerUserModel.setName("John");
         consumerUserModel.setEmail("abc@gmail.com");
         consumerUserModel.setTelephone("12345678");
@@ -29,7 +29,7 @@ public class ConsumerUserServiceImpl implements ConsumerUserService {
     }
 
     public ConsumerUserServiceImpl() {
-        ConsumerUserModel consumerUserModel = CONSUMER_USER_MAP.get("1");
+        ConsumerUserModel consumerUserModel = CONSUMER_USER_MAP.get("C1");
         LOGGER.info("Default User => ID: " + consumerUserModel.getId() + " Name: " +  consumerUserModel.getName());
     }
 

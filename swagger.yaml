@@ -5,12 +5,18 @@ info:
   title: "Swagger NAGP Microservices Assignment"
   contact:
     email: "leon.desilva@nagarro.com"
-host: "localhost"
+host: "localhost:8080"
 tags:
 - name: "Orders"
   description: "Orders endpoints"
 - name: "Services"
   description: "Services endpoints"
+- name: "Consumers"
+  description: "Consumers endpoints"
+- name: "ServiceProviders"
+  description: "Service providers endpoints"
+- name: "Admin"
+  description: "Admin endpoints"
 schemes:
 - "http"
 paths:
@@ -371,6 +377,20 @@ paths:
           "200":
             description: "Successfully updated the order status"
   
+  /admin/orders:
+    post:
+      tags:
+        - "Admin"
+      description: "Aadmin endpoint to assign service providers to orders"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/OrderAssignment'
+      responses:
+        "200":
+          description: "Successfully updated the order status"
+  
   
 definitions:
   Order:
@@ -456,3 +476,15 @@ definitions:
       isApproved:
         type: boolean
         example: true
+        
+  OrderAssignment:
+    properties:
+      consumerId:
+        type: string
+        example: "C1"
+      serviceProviderId:
+        type: string
+        example: "SP1"
+      orderDescription:
+        type: string
+        example: 'This is the order for electrician'

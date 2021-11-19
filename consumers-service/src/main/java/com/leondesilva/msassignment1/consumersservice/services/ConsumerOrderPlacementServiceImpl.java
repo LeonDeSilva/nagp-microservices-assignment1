@@ -1,24 +1,20 @@
 package com.leondesilva.msassignment1.consumersservice.services;
 
 import com.leondesilva.msassignment1.consumersservice.exceptions.OrderPlacementException;
+import com.leondesilva.msassignment1.consumersservice.exceptions.ServiceUriBuilderException;
 import com.leondesilva.msassignment1.consumersservice.models.ConsumerOrderModel;
 import com.leondesilva.msassignment1.consumersservice.models.OrderRequestBody;
-import com.netflix.appinfo.InstanceInfo;
+import com.leondesilva.msassignment1.consumersservice.util.ServiceUriBuilder;
 import com.netflix.discovery.EurekaClient;
-import com.netflix.discovery.shared.Application;
-import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,6 +25,9 @@ public class ConsumerOrderPlacementServiceImpl implements ConsumerOrderPlacement
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private ServiceUriBuilder serviceUriBuilder;
 
     @Value("${orders-service.service-name}")
     private String ordersServiceName;
@@ -45,32 +44,11 @@ public class ConsumerOrderPlacementServiceImpl implements ConsumerOrderPlacement
      */
     @Override
     public void placeOrder(String consumerId, ConsumerOrderModel consumerOrderModel) throws OrderPlacementException {
-        Application orderServiceApp = eurekaClient.getApplication("orders-service");
-
-        if (orderServiceApp == null) {
-            throw new OrderPlacementException("Unable to find order service in service registry.");
-        }
-
-        List<InstanceInfo> instances = orderServiceApp.getInstances();
-
-        if (CollectionUtils.isEmpty(instances)) {
-            throw new OrderPlacementException("Unable to find order service instances");
-        }
-
-        URIBuilder uriBuilder = null;
-        try {
-            uriBuilder = new URIBuilder(instances.get(0).getHomePageUrl());
-        } catch (URISyntaxException e) {
-            throw new OrderPlacementException("Error occurred when trying to build the URI", e);
-        }
-
-        uriBuilder.setPath(ordersServicePostEndpointPath);
-
         URI uri = null;
 
         try {
-            uri = uriBuilder.build();
-        } catch (URISyntaxException e) {
+            uri = serviceUriBuilder.generateUri(ordersServiceName, ordersServicePostEndpointPath);
+        } catch (ServiceUriBuilderException e) {
             throw new OrderPlacementException("Error occurred when trying to build the URI", e);
         }
 
