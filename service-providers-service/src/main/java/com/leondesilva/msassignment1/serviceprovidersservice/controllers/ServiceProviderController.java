@@ -1,6 +1,8 @@
 package com.leondesilva.msassignment1.serviceprovidersservice.controllers;
 
+import com.leondesilva.msassignment1.serviceprovidersservice.models.OrderStatusModel;
 import com.leondesilva.msassignment1.serviceprovidersservice.models.ServiceProviderModel;
+import com.leondesilva.msassignment1.serviceprovidersservice.services.ServiceProviderOrderService;
 import com.leondesilva.msassignment1.serviceprovidersservice.services.ServiceProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import java.util.List;
 public class ServiceProviderController {
     @Autowired
     private ServiceProvidersService serviceProvidersService;
+
+    @Autowired
+    private ServiceProviderOrderService serviceProviderOrderService;
 
     /**
      * Method to get all the service providers.
@@ -51,6 +56,12 @@ public class ServiceProviderController {
      */
     @PostMapping("/service-providers")
     public ResponseEntity<Object> addServiceProvider(@RequestBody ServiceProviderModel serviceProviderModel) {
+        ServiceProviderModel serviceProvider = serviceProvidersService.getServiceProviderById(serviceProviderModel.getId());
+
+        if (serviceProvider != null) {
+            return ResponseEntity.status(403).body("Service provider already exists");
+        }
+
         serviceProvidersService.addServiceProvider(serviceProviderModel);
         return ResponseEntity.ok().build();
     }
@@ -63,14 +74,8 @@ public class ServiceProviderController {
      */
     @PutMapping("/service-providers")
     public ResponseEntity<Object> updateService(@RequestBody ServiceProviderModel serviceProviderModel) {
-        ServiceProviderModel serviceProvider = serviceProvidersService.getServiceProviderById(serviceProviderModel.getId());
-
-        if (serviceProvider != null) {
-            serviceProvidersService.updateServiceProvider(serviceProviderModel);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+        serviceProvidersService.updateServiceProvider(serviceProviderModel);
+        return ResponseEntity.ok().build();
     }
 
     /**
@@ -89,5 +94,19 @@ public class ServiceProviderController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * Method to approve or deny a service order.
+     *
+     * @param id the service provider id
+     * @param orderStatusModel the order status info to set
+     * @return 200 OK
+     */
+    @PostMapping("/service-providers/{id}/order-status")
+    public ResponseEntity<Object> addServiceProvider(@PathVariable("id") String id,
+                                                     @RequestBody OrderStatusModel orderStatusModel) {
+        serviceProviderOrderService.setStatus(id, orderStatusModel);
+        return ResponseEntity.ok().build();
     }
 }

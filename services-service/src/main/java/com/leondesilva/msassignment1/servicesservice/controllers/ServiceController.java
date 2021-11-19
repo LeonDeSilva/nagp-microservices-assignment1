@@ -51,6 +51,12 @@ public class ServiceController {
      */
     @PostMapping("/services")
     public ResponseEntity<Object> addService(@RequestBody ServiceModel serviceModel) {
+        ServiceModel service = servicesService.getServiceById(serviceModel.getId());
+
+        if (service != null) {
+            return ResponseEntity.status(403).body("Service already exists");
+        }
+
         servicesService.addService(serviceModel.getId(), serviceModel.getName());
         return ResponseEntity.ok().build();
     }
@@ -63,14 +69,8 @@ public class ServiceController {
      */
     @PutMapping("/services")
     public ResponseEntity<Object> updateService(@RequestBody ServiceModel serviceModel) {
-        ServiceModel service = servicesService.getServiceById(serviceModel.getId());
-
-        if (service != null) {
-            servicesService.updateService(serviceModel.getId(), serviceModel.getName());
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+        servicesService.updateService(serviceModel.getId(), serviceModel.getName());
+        return ResponseEntity.ok().build();
     }
 
     /**

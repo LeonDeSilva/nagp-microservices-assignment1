@@ -1,0 +1,458 @@
+swagger: "2.0"
+info:
+  description: "API specification for the NAGP microservices assignment"
+  version: "1.0.0"
+  title: "Swagger NAGP Microservices Assignment"
+  contact:
+    email: "leon.desilva@nagarro.com"
+host: "localhost"
+tags:
+- name: "Orders"
+  description: "Orders endpoints"
+- name: "Services"
+  description: "Services endpoints"
+schemes:
+- "http"
+paths:
+  /orders:
+    get:
+      tags:
+        - "Orders"
+      description: "Get all orders"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of orders"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+    post:
+      tags:
+        - "Orders"
+      description: "Add new order"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/Order'
+      responses:
+        "200":
+          description: "Successful addition of orders"
+        "403":
+          description: "Order already exists"
+
+    put:
+      tags:
+        - "Orders"
+      description: "Add or update new order"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/Order'
+      responses:
+        "200":
+          description: "Successful addition or updation of orders"
+          
+  /orders/{id}:
+    get:
+      tags:
+        - "Orders"
+      description: "Get order for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the order"
+        required: true
+        type: "string"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of order"
+          schema:
+            $ref: '#/definitions/Order'
+        "404":
+          description: "Order not found"
+                
+    delete:
+      tags:
+        - "Orders"
+      description: "delete order for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the order"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful deletion of order"
+        "404":
+          description: "Order not found"
+          
+  /services:
+    get:
+      tags:
+        - "Services"
+      description: "Get all services"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of services"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Service'
+    post:
+      tags:
+        - "Services"
+      description: "Add new service"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/Service'
+      responses:
+        "200":
+          description: "Successful addition of services"
+        "403":
+          description: "Service already exists"
+
+    put:
+      tags:
+        - "Services"
+      description: "Add or update new service"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/Service'
+      responses:
+        "200":
+          description: "Successful addition or updation of services"
+          
+  /services/{id}:
+    get:
+      tags:
+        - "Services"
+      description: "Get service for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the service"
+        required: true
+        type: "string"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of service"
+          schema:
+            $ref: '#/definitions/Service'
+        "404":
+          description: "Service not found"
+                
+    delete:
+      tags:
+        - "Services"
+      description: "delete service for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the service"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful deletion of service"
+        "404":
+          description: "Service not found"        
+          
+  /consumers:
+    get:
+      tags:
+        - "Consumers"
+      description: "Get all consumers"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of consumers"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Consumer'
+    post:
+      tags:
+        - "Consumers"
+      description: "Add new consumer"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/Consumer'
+      responses:
+        "200":
+          description: "Successful addition of consumers"
+        "403":
+          description: "Consumer already exists"
+
+    put:
+      tags:
+        - "Consumers"
+      description: "Add or update new consumer"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/Consumer'
+      responses:
+        "200":
+          description: "Successful addition or updation of consumers"
+          
+  /consumers/{id}:
+    get:
+      tags:
+        - "Consumers"
+      description: "Get consumer for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the consumer"
+        required: true
+        type: "string"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of consumer"
+          schema:
+            $ref: '#/definitions/Consumer'
+        "404":
+          description: "Consumer not found"
+                
+    delete:
+      tags:
+        - "Consumers"
+      description: "delete consumer for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the consumer"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful deletion of consumer"
+        "404":
+          description: "Consumer not found"
+          
+          
+  /consumers/{id}/orders:
+    post:
+      tags:
+        - "Consumers"
+      description: "Create orders for a consumer"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the consumer"
+        required: true
+        type: "string"
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/ConsumerOrder'
+      responses:
+        "200":
+          description: "Successful addition of consumers"
+        "403":
+          description: "Consumer already exists"
+  
+  /service-providers:
+    get:
+      tags:
+        - "ServiceProviders"
+      description: "Get all service providers"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of service providers"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ServiceProvider'
+    post:
+      tags:
+        - "ServiceProviders"
+      description: "Add new service-provider"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/ServiceProvider'
+      responses:
+        "200":
+          description: "Successful addition of service providers"
+        "403":
+          description: "Service provider already exists"
+
+    put:
+      tags:
+        - "ServiceProviders"
+      description: "Add or update new service provider"
+      parameters:
+      - name: body
+        in: "body"
+        schema:
+            $ref: '#/definitions/ServiceProvider'
+      responses:
+        "200":
+          description: "Successful addition or updation of service-providers"
+          
+  /service-providers/{id}:
+    get:
+      tags:
+        - "ServiceProviders"
+      description: "Get service-provider for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the service provider"
+        required: true
+        type: "string"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful retrieval of service provider"
+          schema:
+            $ref: '#/definitions/ServiceProvider'
+        "404":
+          description: "Service provider not found"
+                
+    delete:
+      tags:
+        - "ServiceProviders"
+      description: "delete service provider for given id"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the service provider"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful deletion of service provider"
+        "404":
+          description: "Service provider not found"
+          
+  /service-providers/{id}/order-status:
+    post:
+        tags:
+          - "ServiceProviders"
+        description: "Set order status for service provider"
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "id of the service provider"
+          required: true
+          type: "string"
+        - name: body
+          in: "body"
+          schema:
+              $ref: '#/definitions/OrderStatus'
+        responses:
+          "200":
+            description: "Successfully updated the order status"
+  
+  
+definitions:
+  Order:
+    properties:
+      id:
+        type: string
+        example: "order-100"
+      consumerId:
+        type: string
+        example: "c1"
+      serviceId:
+        type: string
+        example: "s1"
+      description:
+        type: string
+        example: "order is to repair the a/c"
+      assignedServiceProviderId:
+        type: string
+        example: "sp1"
+      lastModifiedDateTime:
+        type: string
+        example: "2021-11-19T16:34:13.5328478"
+      approved:
+        type: boolean
+        example: true
+    
+  Service:
+    properties:
+      id:
+        type: string
+        example: "s1"
+      name:
+        type: string
+        example: "Electrician"
+        
+  Consumer:
+    properties:
+      id:
+        type: string
+        example: "C1"
+      name:
+        type: string
+        example: "Consumer1"
+      telephone:
+        type: string
+        example: "12345678"
+      email:
+        type: string
+        example: "abc@gmail.com"
+      address:
+        type: string
+        example: "address1"
+        
+  ConsumerOrder:
+    properties:
+      serviceId:
+        type: string
+        example: "S1"
+      description:
+        type: string
+        example: "Some consumer description"
+          
+  ServiceProvider:
+    properties:
+      id:
+        type: string
+        example: "SP1"
+      description:
+        type: string
+        example: "Some service provider description"
+      serviceId:
+        type: string
+        example: "S1"
+      telephone:
+        type: string
+        example: "123465789"
+    
+  OrderStatus:
+    properties:
+      orderId:
+        type: string
+        example: "Order100"
+      isApproved:
+        type: boolean
+        example: true

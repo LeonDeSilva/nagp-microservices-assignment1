@@ -3,7 +3,7 @@ package com.leondesilva.msassignment1.serviceprovidersservice.models;
 public class ServiceProviderModel {
     private String id;
     private String name;
-    private String service;
+    private String serviceId;
     private String telephone;
 
     public String getId() {
@@ -22,12 +22,12 @@ public class ServiceProviderModel {
         this.name = name;
     }
 
-    public String getService() {
-        return service;
+    public String getServiceId() {
+        return serviceId;
     }
 
-    public void setService(String service) {
-        this.service = service;
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getTelephone() {
@@ -47,7 +47,7 @@ public class ServiceProviderModel {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (service != null ? !service.equals(that.service) : that.service != null) return false;
+        if (serviceId != null ? !serviceId.equals(that.serviceId) : that.serviceId != null) return false;
         return telephone != null ? telephone.equals(that.telephone) : that.telephone == null;
     }
 
@@ -55,7 +55,7 @@ public class ServiceProviderModel {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (service != null ? service.hashCode() : 0);
+        result = 31 * result + (serviceId != null ? serviceId.hashCode() : 0);
         result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
         return result;
     }

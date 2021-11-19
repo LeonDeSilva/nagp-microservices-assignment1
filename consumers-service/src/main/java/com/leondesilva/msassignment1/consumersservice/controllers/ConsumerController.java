@@ -58,6 +58,12 @@ public class ConsumerController {
      */
     @PostMapping("/consumers")
     public ResponseEntity<Object> addConsumerUser(@RequestBody ConsumerUserModel consumerModel) {
+        ConsumerUserModel consumerUser = consumerUserService.getConsumerUserById(consumerModel.getId());
+
+        if (consumerUser != null) {
+            return ResponseEntity.status(403).body("Consumer already exists");
+        }
+
         consumerUserService.addConsumerUser(consumerModel);
         return ResponseEntity.ok().build();
     }
@@ -70,14 +76,8 @@ public class ConsumerController {
      */
     @PutMapping("/consumers")
     public ResponseEntity<Object> updateConsumerUser(@RequestBody ConsumerUserModel consumerModel) {
-        ConsumerUserModel consumerUser = consumerUserService.getConsumerUserById(consumerModel.getId());
-
-        if (consumerUser != null) {
-            consumerUserService.updateConsumerUser(consumerModel);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+        consumerUserService.updateConsumerUser(consumerModel);
+        return ResponseEntity.ok().build();
     }
 
     /**

@@ -51,6 +51,12 @@ public class OrdersController {
      */
     @PostMapping("/orders")
     public ResponseEntity<Object> addOrder(@RequestBody OrderModel orderModel) {
+        OrderModel order = ordersService.getOrderById(orderModel.getId());
+
+        if (order != null) {
+            return ResponseEntity.status(403).body("Order already exists");
+        }
+
         ordersService.addOrder(orderModel);
         return ResponseEntity.ok().build();
     }
@@ -63,14 +69,8 @@ public class OrdersController {
      */
     @PutMapping("/orders")
     public ResponseEntity<Object> updateService(@RequestBody OrderModel orderModel) {
-        OrderModel order = ordersService.getOrderById(orderModel.getId());
-
-        if (order != null) {
-            ordersService.updateOrder(orderModel);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+        ordersService.updateOrder(orderModel);
+        return ResponseEntity.ok().build();
     }
 
     /**
