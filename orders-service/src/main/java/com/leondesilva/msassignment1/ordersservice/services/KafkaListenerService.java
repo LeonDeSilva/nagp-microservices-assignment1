@@ -34,6 +34,7 @@ public class KafkaListenerService {
     @KafkaListener(topics = "${kafka.order-notifications.topic}", groupId = "${kafka.config.consumer.group-id}")
     public void listenToOrderNotificationsTopic(String message) {
         System.out.println("Received Message : " + message);
+
         try {
             OrderNotificationEvent orderNotificationEvent = objectMapper.readValue(message, OrderNotificationEvent.class);
 
@@ -75,6 +76,9 @@ public class KafkaListenerService {
             consumerNotificationEvent.setType("OrderApprovedNotification");
             consumerNotificationEvent.setOrderApproved(true);
             consumerNotificationEvent.setServiceProviderInfo(orderNotificationEvent.getServiceProviderInfo());
+            consumerNotificationEvent.setOrderId(orderNotificationEvent.getOrderId());
+            consumerNotificationEvent.setOrderDescription(order.getDescription());
+            consumerNotificationEvent.setConsumerId(order.getConsumerId());
 
             try {
                 kafkaTemplate.send(consumerNotificationsTopic, objectMapper.writeValueAsString(consumerNotificationEvent));

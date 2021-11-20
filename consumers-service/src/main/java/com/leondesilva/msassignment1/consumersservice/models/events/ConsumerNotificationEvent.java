@@ -1,6 +1,7 @@
-package com.leondesilva.msassignment1.ordersservice.models.events;
+package com.leondesilva.msassignment1.consumersservice.models.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.leondesilva.msassignment1.consumersservice.models.events.ServiceProviderInfo;
 
 public class ConsumerNotificationEvent {
     private String type;
