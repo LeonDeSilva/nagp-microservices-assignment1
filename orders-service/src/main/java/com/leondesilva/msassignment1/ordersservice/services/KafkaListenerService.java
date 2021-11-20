@@ -33,7 +33,7 @@ public class KafkaListenerService {
 
     @KafkaListener(topics = "${kafka.order-notifications.topic}", groupId = "${kafka.config.consumer.group-id}")
     public void listenToOrderNotificationsTopic(String message) {
-        System.out.println("Received Message : " + message);
+        printNotification(message);
 
         try {
             OrderNotificationEvent orderNotificationEvent = objectMapper.readValue(message, OrderNotificationEvent.class);
@@ -86,5 +86,9 @@ public class KafkaListenerService {
                 LOGGER.error("Error occurred when trying to send data to consumer topic", e);
             }
         }
+    }
+
+    private void printNotification(String notification) {
+        System.out.println("\033[0;92m[RECEIVED_NOTIFICATION] " + notification);
     }
 }
