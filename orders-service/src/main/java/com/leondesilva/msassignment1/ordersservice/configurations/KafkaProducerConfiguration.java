@@ -1,4 +1,4 @@
-package com.leondesilva.msassignment1.adminsservice.configurations;
+package com.leondesilva.msassignment1.ordersservice.configurations;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaTopicConfiguration {
+public class KafkaProducerConfiguration {
     @Value("${kafka.config.bootstrapAddress}")
     private String bootstrapAddress;
 
@@ -28,28 +28,6 @@ public class KafkaTopicConfiguration {
 
     @Value("${kafka.consumer-notifications.topic}")
     private String consumerNotificationsTopic;
-
-    @Bean
-    public KafkaAdmin kafkaAdmin() {
-        Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        return new KafkaAdmin(configs);
-    }
-
-    @Bean
-    public NewTopic topic1() {
-        return new NewTopic(orderNotificationsTopic, 1, (short) 1);
-    }
-
-    @Bean
-    public NewTopic topic2() {
-        return new NewTopic(serviceProviderNotificationsTopic, 1, (short) 1);
-    }
-
-    @Bean
-    public NewTopic topic3() {
-        return new NewTopic(consumerNotificationsTopic, 1, (short) 1);
-    }
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {

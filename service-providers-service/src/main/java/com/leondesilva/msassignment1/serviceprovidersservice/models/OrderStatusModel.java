@@ -1,5 +1,7 @@
 package com.leondesilva.msassignment1.serviceprovidersservice.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class OrderStatusModel {
     private String orderId;
     private boolean isApproved;
@@ -12,11 +14,13 @@ public class OrderStatusModel {
         this.orderId = orderId;
     }
 
+    @JsonProperty("isApproved")
     public boolean isApproved() {
         return isApproved;
     }
 
-    public void setApproved(boolean approved) {
+    @JsonProperty("isApproved")
+    public void setIsApproved(boolean approved) {
         isApproved = approved;
     }
 

@@ -1,5 +1,7 @@
 package com.leondesilva.msassignment1.ordersservice.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 
 /**
@@ -102,10 +104,12 @@ public class OrderModel {
         this.assignedServiceProviderId = assignedServiceProviderId;
     }
 
+    @JsonProperty("isApproved")
     public boolean isApproved() {
         return isApproved;
     }
 
+    @JsonProperty("isApproved")
     public void setApproved(boolean approved) {
         isApproved = approved;
     }
