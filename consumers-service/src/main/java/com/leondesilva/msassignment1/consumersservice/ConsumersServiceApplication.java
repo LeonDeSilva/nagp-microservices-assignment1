@@ -13,17 +13,17 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class ConsumersServiceApplication {
-	/**
-	 * Main method
-	 *
-	 * @param args Arguments to the main application
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumersServiceApplication.class, args);
-	}
+    /**
+     * Main method
+     *
+     * @param args Arguments to the main application
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(ConsumersServiceApplication.class, args);
+    }
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 }

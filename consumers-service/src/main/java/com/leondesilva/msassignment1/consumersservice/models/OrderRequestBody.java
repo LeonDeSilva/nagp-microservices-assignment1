@@ -103,4 +103,19 @@ public class OrderRequestBody {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
+
+    /**
+     * Method to get the string representation of the object.
+     *
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "OrderRequestBody{" +
+                "id='" + id + '\'' +
+                ", consumerId='" + consumerId + '\'' +
+                ", serviceId='" + serviceId + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

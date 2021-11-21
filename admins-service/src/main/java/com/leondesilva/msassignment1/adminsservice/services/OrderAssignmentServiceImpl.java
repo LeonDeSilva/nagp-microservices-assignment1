@@ -22,6 +22,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 
+/**
+ * Implementation class for the order assignment service.
+ */
 @Service
 public class OrderAssignmentServiceImpl implements OrderAssignmentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderAssignmentServiceImpl.class);
@@ -50,6 +53,13 @@ public class OrderAssignmentServiceImpl implements OrderAssignmentService {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
+    /**
+     * Method to assign the order to a service provider.
+     *
+     * @param orderAssignmentModel the order assignment information
+     * @throws OrderAssignmentException   if an error occurs at order assignment
+     * @throws InvalidParametersException if invalid parameters are provided
+     */
     @Override
     public void assignOrder(OrderAssignmentModel orderAssignmentModel) throws OrderAssignmentException, InvalidParametersException {
         OrderAssignNotificationEvent event = new OrderAssignNotificationEvent();
@@ -67,6 +77,13 @@ public class OrderAssignmentServiceImpl implements OrderAssignmentService {
         }
     }
 
+    /**
+     * Method to validate the order assignment request.
+     *
+     * @param orderAssignmentModel the order assignment information
+     * @throws InvalidParametersException if input parameters are invalid
+     * @throws OrderAssignmentException   if error occurs at URI build
+     */
     private void validateOrderAssignmentRequest(OrderAssignmentModel orderAssignmentModel) throws InvalidParametersException, OrderAssignmentException {
         if (StringUtils.isEmpty(orderAssignmentModel.getServiceProviderId())) {
             throw new InvalidParametersException("Service id not found");

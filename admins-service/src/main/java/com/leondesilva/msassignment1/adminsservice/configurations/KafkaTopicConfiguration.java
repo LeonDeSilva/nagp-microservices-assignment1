@@ -15,6 +15,9 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class for kafka topic configurations
+ */
 @Configuration
 public class KafkaTopicConfiguration {
     @Value("${kafka.config.bootstrapAddress}")

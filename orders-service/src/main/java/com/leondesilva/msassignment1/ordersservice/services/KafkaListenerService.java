@@ -14,6 +14,9 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class to represent the kafka listener service.
+ */
 @Component
 public class KafkaListenerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaListenerService.class);
@@ -31,6 +34,11 @@ public class KafkaListenerService {
     @Value("${kafka.consumer-notifications.topic}")
     private String consumerNotificationsTopic;
 
+    /**
+     * Method to listen to order notification topic.
+     *
+     * @param message the kafka message
+     */
     @KafkaListener(topics = "${kafka.order-notifications.topic}", groupId = "${kafka.config.consumer.group-id}")
     public void listenToOrderNotificationsTopic(String message) {
         LOGGER.info("Received kafka message: {}", message);
@@ -49,6 +57,11 @@ public class KafkaListenerService {
         }
     }
 
+    /**
+     * Method to handle order assign notifications.
+     *
+     * @param orderNotificationEvent the order assign notification to process
+     */
     private void handleOrderAssignNotification(OrderNotificationEvent orderNotificationEvent) {
         printNotification("Order id: " + orderNotificationEvent.getOrderId() +
                 " has been assigned to service provider id: " + orderNotificationEvent.getServiceProviderId());
@@ -69,6 +82,11 @@ public class KafkaListenerService {
         }
     }
 
+    /**
+     * Method to handle order approve notification.
+     *
+     * @param orderNotificationEvent the order approve notification to process
+     */
     private void handleOrderApproveNotification(OrderNotificationEvent orderNotificationEvent) {
         printNotification("Order id: " + orderNotificationEvent.getOrderId() +
                 " has been " + (orderNotificationEvent.isApproved() ? "approved" : "denied") +
@@ -100,6 +118,11 @@ public class KafkaListenerService {
         }
     }
 
+    /**
+     * Method to print notifications in console with color.
+     *
+     * @param notification the notification to print
+     */
     private void printNotification(String notification) {
         System.out.println("\033[0;92m[RECEIVED_NOTIFICATION] " + notification);
     }

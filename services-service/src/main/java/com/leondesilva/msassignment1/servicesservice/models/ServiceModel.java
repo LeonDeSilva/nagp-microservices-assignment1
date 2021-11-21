@@ -90,4 +90,17 @@ public class ServiceModel {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
+    /**
+     * Method to get the string representation of the object.
+     *
+     * @return string representation
+     */
+    @Override
+    public String toString() {
+        return "ServiceModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

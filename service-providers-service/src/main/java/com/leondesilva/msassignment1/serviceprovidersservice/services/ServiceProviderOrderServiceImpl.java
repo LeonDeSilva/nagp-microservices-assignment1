@@ -45,6 +45,7 @@ public class ServiceProviderOrderServiceImpl implements ServiceProviderOrderServ
         event.setType("OrderApproveNotification");
         event.setApproved(orderStatusModel.isApproved());
         event.setOrderId(orderStatusModel.getOrderId());
+        event.setServiceProviderId(serviceProviderId);
 
         ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
         serviceProviderInfo.setId(serviceProvider.getId());

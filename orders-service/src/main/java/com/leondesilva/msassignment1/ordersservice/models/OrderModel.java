@@ -153,4 +153,22 @@ public class OrderModel {
         result = 31 * result + (lastModifiedDateTime != null ? lastModifiedDateTime.hashCode() : 0);
         return result;
     }
+
+    /**
+     * Method to get the string representation of the object.
+     *
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "OrderModel{" +
+                "id='" + id + '\'' +
+                ", consumerId='" + consumerId + '\'' +
+                ", serviceId='" + serviceId + '\'' +
+                ", description='" + description + '\'' +
+                ", assignedServiceProviderId='" + assignedServiceProviderId + '\'' +
+                ", isApproved=" + isApproved +
+                ", lastModifiedDateTime=" + lastModifiedDateTime +
+                '}';
+    }
 }

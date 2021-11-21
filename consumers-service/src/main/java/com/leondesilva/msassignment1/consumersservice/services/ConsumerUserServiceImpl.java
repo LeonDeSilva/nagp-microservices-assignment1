@@ -30,7 +30,7 @@ public class ConsumerUserServiceImpl implements ConsumerUserService {
 
     public ConsumerUserServiceImpl() {
         ConsumerUserModel consumerUserModel = CONSUMER_USER_MAP.get("C1");
-        LOGGER.info("Default User => ID: " + consumerUserModel.getId() + " Name: " +  consumerUserModel.getName());
+        LOGGER.info("Default User => ID: " + consumerUserModel.getId() + " Name: " + consumerUserModel.getName());
     }
 
     /**

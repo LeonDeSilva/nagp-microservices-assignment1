@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
@@ -14,6 +13,9 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Kafka consumer configurations
+ */
 @EnableKafka
 @Configuration
 public class KafkaConsumerConfiguration {
@@ -40,9 +42,4 @@ public class KafkaConsumerConfiguration {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
-
-//    @KafkaListener(topics = "${kafka.order-notifications.topic}", groupId = "${kafka.config.consumer.group-id}")
-//    public void listenGroupFoo(String message) {
-//        System.out.println("Received Message : " + message);
-//    }
 }

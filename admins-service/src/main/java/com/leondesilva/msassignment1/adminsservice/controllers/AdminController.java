@@ -12,14 +12,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Class to represent the admin controller.
+ */
 @RestController
 public class AdminController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
     @Autowired
     private OrderAssignmentService orderAssignmentService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
-
+    /**
+     * Controller method to assign service provider to an order.
+     *
+     * @param orderAssignmentModel the order assignment information
+     * @return 200 OK if assigned successfully. 500 if server error and 400 if invalid inputs
+     */
     @PostMapping("/admin/orders")
     public ResponseEntity<Object> assignServiceProviderToOrder(@RequestBody OrderAssignmentModel orderAssignmentModel) {
         try {

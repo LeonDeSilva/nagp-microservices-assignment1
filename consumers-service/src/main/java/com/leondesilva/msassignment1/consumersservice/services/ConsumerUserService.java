@@ -33,8 +33,9 @@ public interface ConsumerUserService {
 
     /**
      * Method to update the consumer user.
-     * @return the consumer user
+     *
      * @param consumerModel the consumer user to add
+     * @return the consumer user
      */
     ConsumerUserModel updateConsumerUser(ConsumerUserModel consumerModel);
 

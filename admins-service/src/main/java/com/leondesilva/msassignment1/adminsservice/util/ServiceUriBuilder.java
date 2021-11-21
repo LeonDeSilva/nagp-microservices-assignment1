@@ -14,12 +14,23 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ * Class to represent the service URI builder.
+ */
 @Component
 public class ServiceUriBuilder {
     @Autowired
     @Lazy
     private EurekaClient eurekaClient;
 
+    /**
+     * Method to generate the URI for a given service name and path.
+     *
+     * @param serviceName the service name
+     * @param path        the path
+     * @return the generated URI
+     * @throws ServiceUriBuilderException if an error occurs
+     */
     public URI generateUri(String serviceName, String path) throws ServiceUriBuilderException {
         Application orderServiceApp = eurekaClient.getApplication(serviceName);
 

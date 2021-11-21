@@ -34,7 +34,7 @@ public class OrdersServiceImpl implements OrdersService {
      */
     @Override
     public OrderModel getOrderById(String id) {
-        return  ORDERS_MAP.get(id);
+        return ORDERS_MAP.get(id);
     }
 
     /**

@@ -22,6 +22,9 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.UUID;
 
+/**
+ * Implementation class for the consumer order placement service.
+ */
 @Service
 public class ConsumerOrderPlacementServiceImpl implements ConsumerOrderPlacementService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsumerUserServiceImpl.class);
@@ -52,7 +55,7 @@ public class ConsumerOrderPlacementServiceImpl implements ConsumerOrderPlacement
     /**
      * Method to place the order.
      *
-     * @param consumerId    the consumer id
+     * @param consumerId         the consumer id
      * @param consumerOrderModel the consumer order
      * @return placed order information
      * @throws OrderPlacementException if an error occurs at order placement
@@ -91,6 +94,7 @@ public class ConsumerOrderPlacementServiceImpl implements ConsumerOrderPlacement
      *
      * @param consumerOrderModel the consumer order model
      * @return true if valid and false if not
+     * @throws OrderPlacementException if an error occurs at order placement parameter validations
      */
     @Override
     public boolean validateServiceIdOfPlacedOrder(ConsumerOrderModel consumerOrderModel) throws OrderPlacementException {

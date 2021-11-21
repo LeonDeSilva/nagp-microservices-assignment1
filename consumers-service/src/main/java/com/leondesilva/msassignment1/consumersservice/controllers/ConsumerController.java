@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Class for consumer REST controller.
+ */
 @RestController
 public class ConsumerController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsumerController.class);
@@ -102,7 +105,7 @@ public class ConsumerController {
     /**
      * Method to place an order by a consumer.
      *
-     * @param id the id
+     * @param id                 the id
      * @param consumerOrderModel the consumer order
      * @return 200 OK if success, 400 bad request when consumer is invalid
      */
