@@ -27,15 +27,17 @@ public interface ServiceProvidersService {
      * Method to add service provider information.
      *
      * @param serviceProviderModel the service provider information
+     * @return the service provider information
      */
-    void addServiceProvider(ServiceProviderModel serviceProviderModel);
+    ServiceProviderModel addServiceProvider(ServiceProviderModel serviceProviderModel);
 
     /**
      * Method to update the service provider information.
      *
      * @param serviceProviderModel the service provider information
+     * @return the service provider information
      */
-    void updateServiceProvider(ServiceProviderModel serviceProviderModel);
+    ServiceProviderModel updateServiceProvider(ServiceProviderModel serviceProviderModel);
 
     /**
      * Method to delete the service provider.

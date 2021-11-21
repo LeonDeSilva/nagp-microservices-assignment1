@@ -27,9 +27,11 @@ public class ServicesServiceImpl implements ServicesService {
      *
      * @param id          the service id
      * @param serviceName the service name
+     * @return the service info
      */
-    public void addService(String id, String serviceName) {
+    public ServiceModel addService(String id, String serviceName) {
         SERVICES_MAP.put(id, new ServiceModel(id, serviceName));
+        return SERVICES_MAP.get(id);
     }
 
     /**
@@ -47,11 +49,14 @@ public class ServicesServiceImpl implements ServicesService {
      *
      * @param id   the service id
      * @param name the service name
+     * @return the service info
      */
-    public void updateService(String id, String name) {
+    public ServiceModel updateService(String id, String name) {
         if (SERVICES_MAP.containsKey(id)) {
             SERVICES_MAP.get(id).setName(name);
         }
+
+        return SERVICES_MAP.get(id);
     }
 
     /**

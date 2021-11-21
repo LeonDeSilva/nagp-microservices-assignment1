@@ -13,8 +13,9 @@ public interface ServicesService {
      *
      * @param id          the service id
      * @param serviceName the service name
+     * @return the service info
      */
-    void addService(String id, String serviceName);
+    ServiceModel addService(String id, String serviceName);
 
     /**
      * Method to get the service by id.
@@ -29,8 +30,9 @@ public interface ServicesService {
      *
      * @param id   the service id
      * @param name the service name
+     * @return the service info
      */
-    void updateService(String id, String name);
+    ServiceModel updateService(String id, String name);
 
     /**
      * Method to delete service.

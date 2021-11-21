@@ -59,4 +59,14 @@ public class ServiceProviderInfo {
         result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceProviderInfo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", serviceId='" + serviceId + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
 }

@@ -57,8 +57,8 @@ public class ServiceController {
             return ResponseEntity.status(403).body("Service already exists");
         }
 
-        servicesService.addService(serviceModel.getId(), serviceModel.getName());
-        return ResponseEntity.ok().build();
+        ServiceModel serviceModelResult = servicesService.addService(serviceModel.getId(), serviceModel.getName());
+        return ResponseEntity.ok().body(serviceModelResult);
     }
 
     /**
@@ -69,8 +69,8 @@ public class ServiceController {
      */
     @PutMapping("/services")
     public ResponseEntity<Object> updateService(@RequestBody ServiceModel serviceModel) {
-        servicesService.updateService(serviceModel.getId(), serviceModel.getName());
-        return ResponseEntity.ok().build();
+        ServiceModel serviceModelResult = servicesService.updateService(serviceModel.getId(), serviceModel.getName());
+        return ResponseEntity.ok().body(serviceModelResult);
     }
 
     /**

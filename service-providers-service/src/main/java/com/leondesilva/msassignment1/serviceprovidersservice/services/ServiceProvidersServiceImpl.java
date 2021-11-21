@@ -49,20 +49,24 @@ public class ServiceProvidersServiceImpl implements ServiceProvidersService {
      * Method to add service provider information.
      *
      * @param serviceProviderModel the service provider information
+     * @return the service provider information
      */
     @Override
-    public void addServiceProvider(ServiceProviderModel serviceProviderModel) {
+    public ServiceProviderModel addServiceProvider(ServiceProviderModel serviceProviderModel) {
         SERVICE_PROVIDER_MAP.put(serviceProviderModel.getId(), serviceProviderModel);
+        return serviceProviderModel;
     }
 
     /**
      * Method to update the service provider information.
      *
      * @param serviceProviderModel the service provider information
+     * @return the service provider information
      */
     @Override
-    public void updateServiceProvider(ServiceProviderModel serviceProviderModel) {
+    public ServiceProviderModel updateServiceProvider(ServiceProviderModel serviceProviderModel) {
         SERVICE_PROVIDER_MAP.put(serviceProviderModel.getId(), serviceProviderModel);
+        return serviceProviderModel;
     }
 
     /**

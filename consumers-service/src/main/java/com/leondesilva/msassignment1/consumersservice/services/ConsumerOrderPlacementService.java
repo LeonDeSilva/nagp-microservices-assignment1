@@ -2,6 +2,7 @@ package com.leondesilva.msassignment1.consumersservice.services;
 
 import com.leondesilva.msassignment1.consumersservice.exceptions.OrderPlacementException;
 import com.leondesilva.msassignment1.consumersservice.models.ConsumerOrderModel;
+import com.leondesilva.msassignment1.consumersservice.models.OrderModel;
 
 import java.net.URISyntaxException;
 
@@ -14,7 +15,16 @@ public interface ConsumerOrderPlacementService {
      *
      * @param consumerId the consumer id
      * @param consumerOrderModel the consumer order
+     * @return placed order information
      * @throws OrderPlacementException if an error occurs at order placement
      */
-    void placeOrder(String consumerId, ConsumerOrderModel consumerOrderModel) throws OrderPlacementException;
+    OrderModel placeOrder(String consumerId, ConsumerOrderModel consumerOrderModel) throws OrderPlacementException;
+
+    /**
+     * Method to validate the service id of the placed order.
+     *
+     * @param consumerOrderModel the consumer order model
+     * @return true if valid and false if not
+     */
+    boolean validateServiceIdOfPlacedOrder(ConsumerOrderModel consumerOrderModel) throws OrderPlacementException;
 }

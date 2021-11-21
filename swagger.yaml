@@ -46,6 +46,8 @@ paths:
       responses:
         "200":
           description: "Successful addition of orders"
+          schema:
+            $ref: '#/definitions/Order'
         "403":
           description: "Order already exists"
 
@@ -61,6 +63,8 @@ paths:
       responses:
         "200":
           description: "Successful addition or updation of orders"
+          schema:
+            $ref: '#/definitions/Order'
           
   /orders/{id}:
     get:
@@ -125,6 +129,8 @@ paths:
       responses:
         "200":
           description: "Successful addition of services"
+          schema:
+            $ref: '#/definitions/Service'
         "403":
           description: "Service already exists"
 
@@ -140,6 +146,8 @@ paths:
       responses:
         "200":
           description: "Successful addition or updation of services"
+          schema:
+            $ref: '#/definitions/Service'
           
   /services/{id}:
     get:
@@ -204,6 +212,8 @@ paths:
       responses:
         "200":
           description: "Successful addition of consumers"
+          schema:
+            $ref: '#/definitions/Consumer'
         "403":
           description: "Consumer already exists"
 
@@ -219,6 +229,8 @@ paths:
       responses:
         "200":
           description: "Successful addition or updation of consumers"
+          schema:
+            $ref: '#/definitions/Consumer'
           
   /consumers/{id}:
     get:
@@ -276,6 +288,8 @@ paths:
       responses:
         "200":
           description: "Successful addition of consumers"
+          schema:
+            $ref: '#/definitions/Order'
         "403":
           description: "Consumer already exists"
   
@@ -305,6 +319,8 @@ paths:
       responses:
         "200":
           description: "Successful addition of service providers"
+          schema:
+            $ref: '#/definitions/ServiceProvider'
         "403":
           description: "Service provider already exists"
 
@@ -320,6 +336,8 @@ paths:
       responses:
         "200":
           description: "Successful addition or updation of service-providers"
+          schema:
+            $ref: '#/definitions/ServiceProvider'
           
   /service-providers/{id}:
     get:
@@ -390,6 +408,10 @@ paths:
       responses:
         "200":
           description: "Successfully updated the order status"
+        "500":
+          description: "Server errors"
+        "400":
+          description: "Invalid parameter errors"
   
   
 definitions:
@@ -409,13 +431,13 @@ definitions:
         example: "order is to repair the a/c"
       assignedServiceProviderId:
         type: string
-        example: "sp1"
+        example: null
       lastModifiedDateTime:
         type: string
         example: "2021-11-19T16:34:13.5328478"
       approved:
         type: boolean
-        example: true
+        example: false
     
   Service:
     properties:

@@ -3,6 +3,7 @@ package com.leondesilva.msassignment1.consumersservice.controllers;
 import com.leondesilva.msassignment1.consumersservice.exceptions.OrderPlacementException;
 import com.leondesilva.msassignment1.consumersservice.models.ConsumerOrderModel;
 import com.leondesilva.msassignment1.consumersservice.models.ConsumerUserModel;
+import com.leondesilva.msassignment1.consumersservice.models.OrderModel;
 import com.leondesilva.msassignment1.consumersservice.services.ConsumerOrderPlacementService;
 import com.leondesilva.msassignment1.consumersservice.services.ConsumerUserService;
 import org.slf4j.Logger;
@@ -64,8 +65,8 @@ public class ConsumerController {
             return ResponseEntity.status(403).body("Consumer already exists");
         }
 
-        consumerUserService.addConsumerUser(consumerModel);
-        return ResponseEntity.ok().build();
+        ConsumerUserModel consumerUserResult = consumerUserService.addConsumerUser(consumerModel);
+        return ResponseEntity.ok().body(consumerUserResult);
     }
 
     /**
@@ -76,8 +77,8 @@ public class ConsumerController {
      */
     @PutMapping("/consumers")
     public ResponseEntity<Object> updateConsumerUser(@RequestBody ConsumerUserModel consumerModel) {
-        consumerUserService.updateConsumerUser(consumerModel);
-        return ResponseEntity.ok().build();
+        ConsumerUserModel consumerUserResult = consumerUserService.updateConsumerUser(consumerModel);
+        return ResponseEntity.ok().body(consumerUserResult);
     }
 
     /**
@@ -110,14 +111,22 @@ public class ConsumerController {
                                              @RequestBody ConsumerOrderModel consumerOrderModel) {
         ConsumerUserModel consumerUserModel = consumerUserService.getConsumerUserById(id);
 
+        try {
+            if (!consumerOrderPlacementService.validateServiceIdOfPlacedOrder(consumerOrderModel)) {
+                return ResponseEntity.badRequest().body("Service id is invalid.");
+            }
+        } catch (OrderPlacementException e) {
+            LOGGER.error("Error occurred when trying to check service validity at place order", e);
+        }
+
         if (consumerUserModel != null) {
             try {
-                consumerOrderPlacementService.placeOrder(id, consumerOrderModel);
+                OrderModel orderModel = consumerOrderPlacementService.placeOrder(id, consumerOrderModel);
+                return ResponseEntity.ok().body(orderModel);
             } catch (OrderPlacementException e) {
                 LOGGER.error("Error occurred when trying to place order", e);
                 return ResponseEntity.internalServerError().build();
             }
-            return ResponseEntity.ok().build();
         }
 
         return ResponseEntity.badRequest().body("Consumer id is invalid.");

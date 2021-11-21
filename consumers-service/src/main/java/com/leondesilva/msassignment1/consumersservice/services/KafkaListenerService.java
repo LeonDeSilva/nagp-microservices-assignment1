@@ -32,21 +32,26 @@ public class KafkaListenerService {
 
     @KafkaListener(topics = "${kafka.consumer-notifications.topic}", groupId = "${kafka.config.consumer.group-id}")
     public void listenToOrderNotificationsTopic(String message) {
-        printNotification(message);
+        LOGGER.info("Received kafka message: {}", message);
 
         try {
             ConsumerNotificationEvent consumerNotificationEvent = objectMapper.readValue(message, ConsumerNotificationEvent.class);
 
             if (consumerNotificationEvent.isOrderApproved()) {
+                printNotification("Order id: " + consumerNotificationEvent.getOrderId() +
+                        " Placed by consumer id: " + consumerNotificationEvent.getConsumerId() +
+                        " has been approved. Service provider info: " + consumerNotificationEvent.getServiceProviderInfo());
+
                 ConsumerUserModel consumer = consumerUserService.getConsumerUserById(consumerNotificationEvent.getConsumerId());
 
                 ServiceProviderNotificationEvent serviceProviderNotificationEvent = new ServiceProviderNotificationEvent();
-                serviceProviderNotificationEvent.setOrderId(consumerNotificationEvent.getOrderId());
+                serviceProviderNotificationEvent.setAssignedOrderId(consumerNotificationEvent.getOrderId());
                 serviceProviderNotificationEvent.setOrderDescription(consumerNotificationEvent.getOrderDescription());
                 serviceProviderNotificationEvent.setConsumerInfo(consumer);
                 serviceProviderNotificationEvent.setType("DetailedInfoNotification");
 
                 kafkaTemplate.send(serviceProviderNotificationsTopic, objectMapper.writeValueAsString(serviceProviderNotificationEvent));
+                LOGGER.info("Submitted detailed information to {} topic", serviceProviderNotificationsTopic);
             }
 
         } catch (JsonProcessingException e) {

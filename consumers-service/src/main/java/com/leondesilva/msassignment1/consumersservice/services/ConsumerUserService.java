@@ -27,15 +27,16 @@ public interface ConsumerUserService {
      * Method to add a consumer user.
      *
      * @param consumerModel the consumer user to add
+     * @return the consumer user
      */
-    void addConsumerUser(ConsumerUserModel consumerModel);
+    ConsumerUserModel addConsumerUser(ConsumerUserModel consumerModel);
 
     /**
      * Method to update the consumer user.
-     *
+     * @return the consumer user
      * @param consumerModel the consumer user to add
      */
-    void updateConsumerUser(ConsumerUserModel consumerModel);
+    ConsumerUserModel updateConsumerUser(ConsumerUserModel consumerModel);
 
     /**
      * Method to delete a consumer user.

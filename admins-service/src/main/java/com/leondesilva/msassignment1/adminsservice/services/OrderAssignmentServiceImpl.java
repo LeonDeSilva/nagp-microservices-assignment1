@@ -9,6 +9,8 @@ import com.leondesilva.msassignment1.adminsservice.models.OrderAssignmentModel;
 import com.leondesilva.msassignment1.adminsservice.models.events.OrderAssignNotificationEvent;
 import com.leondesilva.msassignment1.adminsservice.util.ServiceUriBuilder;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,8 @@ import java.net.URI;
 
 @Service
 public class OrderAssignmentServiceImpl implements OrderAssignmentService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderAssignmentServiceImpl.class);
+
     @Value("${service-providers-service.service-name}")
     private String serviceProvidersServiceName;
 
@@ -57,6 +61,7 @@ public class OrderAssignmentServiceImpl implements OrderAssignmentService {
 
         try {
             kafkaTemplate.send(orderNotificationsTopic, objectMapper.writeValueAsString(event));
+            LOGGER.info("Submitted message for {} topic", orderNotificationsTopic);
         } catch (JsonProcessingException e) {
             throw new OrderAssignmentException("Error occurred when sending order assignment event.", e);
         }

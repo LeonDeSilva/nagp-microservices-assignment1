@@ -62,8 +62,8 @@ public class ServiceProviderController {
             return ResponseEntity.status(403).body("Service provider already exists");
         }
 
-        serviceProvidersService.addServiceProvider(serviceProviderModel);
-        return ResponseEntity.ok().build();
+        ServiceProviderModel serviceProviderModelResult = serviceProvidersService.addServiceProvider(serviceProviderModel);
+        return ResponseEntity.ok().body(serviceProviderModelResult);
     }
 
     /**
@@ -74,8 +74,8 @@ public class ServiceProviderController {
      */
     @PutMapping("/service-providers")
     public ResponseEntity<Object> updateService(@RequestBody ServiceProviderModel serviceProviderModel) {
-        serviceProvidersService.updateServiceProvider(serviceProviderModel);
-        return ResponseEntity.ok().build();
+        ServiceProviderModel serviceProviderModelResult = serviceProvidersService.updateServiceProvider(serviceProviderModel);
+        return ResponseEntity.ok().body(serviceProviderModelResult);
     }
 
     /**

@@ -33,7 +33,7 @@ public class KafkaListenerService {
 
     @KafkaListener(topics = "${kafka.order-notifications.topic}", groupId = "${kafka.config.consumer.group-id}")
     public void listenToOrderNotificationsTopic(String message) {
-        printNotification(message);
+        LOGGER.info("Received kafka message: {}", message);
 
         try {
             OrderNotificationEvent orderNotificationEvent = objectMapper.readValue(message, OrderNotificationEvent.class);
@@ -50,6 +50,8 @@ public class KafkaListenerService {
     }
 
     private void handleOrderAssignNotification(OrderNotificationEvent orderNotificationEvent) {
+        printNotification("Order id: " + orderNotificationEvent.getOrderId() +
+                " has been assigned to service provider id: " + orderNotificationEvent.getServiceProviderId());
         OrderModel order = ordersService.getOrderById(orderNotificationEvent.getOrderId());
         order.setAssignedServiceProviderId(orderNotificationEvent.getServiceProviderId());
         ordersService.updateOrder(order);
@@ -61,14 +63,23 @@ public class KafkaListenerService {
 
         try {
             kafkaTemplate.send(serviceProviderNotificationsTopic, objectMapper.writeValueAsString(serviceProviderAssignNotificationEvent));
+            LOGGER.info("Submitted order assigned message to {} topic", serviceProviderNotificationsTopic);
         } catch (Exception e) {
             LOGGER.error("Error occurred when trying to send data to service provider topic", e);
         }
     }
 
     private void handleOrderApproveNotification(OrderNotificationEvent orderNotificationEvent) {
+        printNotification("Order id: " + orderNotificationEvent.getOrderId() +
+                " has been " + (orderNotificationEvent.isApproved() ? "approved" : "denied") +
+                " by service provider id: " + orderNotificationEvent.getServiceProviderInfo().getId());
         OrderModel order = ordersService.getOrderById(orderNotificationEvent.getOrderId());
         order.setApproved(orderNotificationEvent.isApproved());
+
+        if (!orderNotificationEvent.isApproved()) {
+            order.setAssignedServiceProviderId(null);
+        }
+
         ordersService.updateOrder(order);
 
         if (orderNotificationEvent.isApproved()) {
@@ -82,6 +93,7 @@ public class KafkaListenerService {
 
             try {
                 kafkaTemplate.send(consumerNotificationsTopic, objectMapper.writeValueAsString(consumerNotificationEvent));
+                LOGGER.info("Submitted order approval message to {} topic", consumerNotificationsTopic);
             } catch (JsonProcessingException e) {
                 LOGGER.error("Error occurred when trying to send data to consumer topic", e);
             }

@@ -57,8 +57,8 @@ public class OrdersController {
             return ResponseEntity.status(403).body("Order already exists");
         }
 
-        ordersService.addOrder(orderModel);
-        return ResponseEntity.ok().build();
+        OrderModel orderModelResult = ordersService.addOrder(orderModel);
+        return ResponseEntity.ok().body(orderModelResult);
     }
 
     /**
@@ -69,8 +69,8 @@ public class OrdersController {
      */
     @PutMapping("/orders")
     public ResponseEntity<Object> updateService(@RequestBody OrderModel orderModel) {
-        ordersService.updateOrder(orderModel);
-        return ResponseEntity.ok().build();
+        OrderModel orderModelResult = ordersService.updateOrder(orderModel);
+        return ResponseEntity.ok().body(orderModelResult);
     }
 
     /**

@@ -58,20 +58,24 @@ public class ConsumerUserServiceImpl implements ConsumerUserService {
      * Method to add a consumer user.
      *
      * @param consumerModel the consumer user to add
+     * @return the consumer user
      */
     @Override
-    public void addConsumerUser(ConsumerUserModel consumerModel) {
+    public ConsumerUserModel addConsumerUser(ConsumerUserModel consumerModel) {
         CONSUMER_USER_MAP.put(consumerModel.getId(), consumerModel);
+        return consumerModel;
     }
 
     /**
      * Method to update the consumer user.
      *
      * @param consumerModel the consumer user to add
+     * @return the consumer user
      */
     @Override
-    public void updateConsumerUser(ConsumerUserModel consumerModel) {
+    public ConsumerUserModel updateConsumerUser(ConsumerUserModel consumerModel) {
         CONSUMER_USER_MAP.put(consumerModel.getId(), consumerModel);
+        return consumerModel;
     }
 
     /**

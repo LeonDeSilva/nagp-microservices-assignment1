@@ -27,15 +27,17 @@ public interface OrdersService {
      * Method to add order information.
      *
      * @param orderModel the order information
+     * @return the order information
      */
-    void addOrder(OrderModel orderModel);
+    OrderModel addOrder(OrderModel orderModel);
 
     /**
      * Method to update the order information.
      *
      * @param orderModel the order information
+     * @return the order information
      */
-    void updateOrder(OrderModel orderModel);
+    OrderModel updateOrder(OrderModel orderModel);
 
     /**
      * Method to delete the order.

@@ -56,6 +56,7 @@ public class ServiceProviderOrderServiceImpl implements ServiceProviderOrderServ
 
         try {
             kafkaTemplate.send(orderNotificationTopic, objectMapper.writeValueAsString(event));
+            LOGGER.info("Submitted kafka message for order approval / deny notification. Order id: {}, Service provider: {}, approved: {}", orderStatusModel.getOrderId(), serviceProviderId, orderStatusModel.isApproved());
         } catch (JsonProcessingException e) {
             LOGGER.error("Error occurred when trying to send data to order topic", e);
         }

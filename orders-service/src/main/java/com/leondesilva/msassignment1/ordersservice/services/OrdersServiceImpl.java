@@ -41,22 +41,26 @@ public class OrdersServiceImpl implements OrdersService {
      * Method to add order information.
      *
      * @param orderModel the order information
+     * @return the order information
      */
     @Override
-    public void addOrder(OrderModel orderModel) {
+    public OrderModel addOrder(OrderModel orderModel) {
         orderModel.setLastModifiedDateTime(LocalDateTime.now());
         ORDERS_MAP.put(orderModel.getId(), orderModel);
+        return ORDERS_MAP.get(orderModel.getId());
     }
 
     /**
      * Method to update the order information.
      *
      * @param orderModel the order information
+     * @return the order information
      */
     @Override
-    public void updateOrder(OrderModel orderModel) {
+    public OrderModel updateOrder(OrderModel orderModel) {
         orderModel.setLastModifiedDateTime(LocalDateTime.now());
         ORDERS_MAP.put(orderModel.getId(), orderModel);
+        return ORDERS_MAP.get(orderModel.getId());
     }
 
     /**
